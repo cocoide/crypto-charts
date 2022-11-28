@@ -6,6 +6,7 @@ import { GetStaticProps } from 'next';
 import { useCryptoDataSWR } from '../utils/useCryptoDataSWR';
 import { useState } from 'react';
 import CryptoTag from '../components/Templates/CryptoTag';
+import Image from 'next/image';
 
 
 
@@ -34,6 +35,17 @@ const Home: React.FC<Props> = ({ fallbackData }) => {
 
 
       <main>
+        <div className='flex justify-center'>
+          <Image src="/crypto1.jpg" alt='' height={200} width={400} className="rounded-xl opacity-80" />
+        </div>
+        <CryptoDetail
+          product_code={data?.product_code}
+          timestamp={data?.timestamp}
+          best_bid={data?.best_bid}
+          best_ask={data?.best_ask}
+          handleClick={handleUpdateCrypto}
+        />
+
 
         <div className='flex flex-row justify-center'>
           <CryptoTag
@@ -53,13 +65,7 @@ const Home: React.FC<Props> = ({ fallbackData }) => {
             handleClick={() => setCryptoID("XRP")} />
         </div>
 
-        <CryptoDetail
-          product_code={data?.product_code}
-          timestamp={data?.timestamp}
-          best_bid={data?.best_bid}
-          best_ask={data?.best_ask}
-          handleClick={handleUpdateCrypto}
-        />
+
 
       </main>
     </>
