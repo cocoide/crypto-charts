@@ -11,3 +11,5 @@ export type BitflyerResType ={
     best_bid?: string 
     best_ask?: string
 }
+
+export type CryptoType= "BTC"|"ETH"|"XLM"|"XRP"

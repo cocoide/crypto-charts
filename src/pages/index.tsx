@@ -1,23 +1,24 @@
 import Head from 'next/head'
-import { BitflyerResType } from '../models/Crypto'
+import { BitflyerResType, CryptoType } from '../models/Crypto'
 import { fetcher } from '../libs/fetcher';
 import CryptoDetail from '../components/Templates/CryptoDetail';
 import { GetStaticProps } from 'next';
-import { useBTCDataSWR } from '../utils/useBTCDataSWR';
 import { useCryptoDataSWR } from '../utils/useCryptoDataSWR';
+import { useState } from 'react';
+import CryptoTag from '../components/Templates/CryptoTag';
 
-type Props = {
-  fallbackData: BitflyerResType
-}
+
+
+type Props = { fallbackData: BitflyerResType }
 
 const Home: React.FC<Props> = ({ fallbackData }) => {
 
-  const id = "ETH"
+  const [cryptoID, setCryptoID] = useState<CryptoType>("BTC");
 
-  const { data, mutate } = useCryptoDataSWR(fallbackData, id)
+  const { data, mutate } = useCryptoDataSWR(fallbackData, cryptoID)
 
   const handleUpdateCrypto = async (): Promise<void> => {
-    const newData = await fetcher(`/api/Crypto/${id}`)
+    const newData = await fetcher(`/api/Crypto/${cryptoID}`)
     mutate(newData).catch((error) => {
       throw error
     })
@@ -34,6 +35,24 @@ const Home: React.FC<Props> = ({ fallbackData }) => {
 
       <main>
 
+        <div className='flex flex-row justify-center'>
+          <CryptoTag
+            CryptoID='BTC'
+            handleClick={() => setCryptoID("BTC")} />
+
+          <CryptoTag
+            CryptoID='ETH'
+            handleClick={() => setCryptoID("ETH")} />
+
+          <CryptoTag
+            CryptoID='XLM'
+            handleClick={() => setCryptoID("XLM")} />
+
+          <CryptoTag
+            CryptoID='XRP'
+            handleClick={() => setCryptoID("XRP")} />
+        </div>
+
         <CryptoDetail
           product_code={data?.product_code}
           timestamp={data?.timestamp}
@@ -41,6 +60,7 @@ const Home: React.FC<Props> = ({ fallbackData }) => {
           best_ask={data?.best_ask}
           handleClick={handleUpdateCrypto}
         />
+
       </main>
     </>
   )
