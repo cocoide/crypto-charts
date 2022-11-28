@@ -1,10 +1,8 @@
-import { ArrowPathIcon } from '@heroicons/react/24/outline'
-import Image from 'next/image';
 import { BitflyerResType } from '../../models/Crypto';
 import UpdateIcon from '../Atoms/UpdateIcon';
 
 
-type Func = { handleUpdate: () => void };
+type Func = { handleClick: () => void };
 type Props = Func & BitflyerResType;
 
 const CryptoDetail = (props: Props) => {
@@ -21,7 +19,7 @@ const CryptoDetail = (props: Props) => {
           <p>最高売り価格：{props.best_ask}</p>
         </div>
 
-        <button type="button" onClick={props.handleUpdate} className="
+        <button type="button" onClick={props.handleClick} className="
         group inline-flex bg-indigo-300 rounded-full drop-shadow m-2 p-3"
         ><UpdateIcon />
         </button>

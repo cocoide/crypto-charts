@@ -1,21 +1,23 @@
 import Head from 'next/head'
 import { BitflyerResType } from '../models/Crypto'
-import { useBTCDataSWR } from '../utils/useBTCDataSWR';
 import { fetcher } from '../libs/fetcher';
-import { ArrowPathIcon } from '@heroicons/react/24/outline'
-import Image from 'next/image';
 import CryptoDetail from '../components/Templates/CryptoDetail';
 import { GetStaticProps } from 'next';
+import { useBTCDataSWR } from '../utils/useBTCDataSWR';
+import { useCryptoDataSWR } from '../utils/useCryptoDataSWR';
 
 type Props = {
   fallbackData: BitflyerResType
 }
 
 const Home: React.FC<Props> = ({ fallbackData }) => {
-  const { data, mutate } = useBTCDataSWR(fallbackData)
 
-  const handleUpdateBTC = async (): Promise<void> => {
-    const newData = await fetcher('/api/bitcoin')
+  const id = "ETH"
+
+  const { data, mutate } = useCryptoDataSWR(fallbackData, id)
+
+  const handleUpdateCrypto = async (): Promise<void> => {
+    const newData = await fetcher(`/api/Crypto/${id}`)
     mutate(newData).catch((error) => {
       throw error
     })
@@ -37,7 +39,7 @@ const Home: React.FC<Props> = ({ fallbackData }) => {
           timestamp={data?.timestamp}
           best_bid={data?.best_bid}
           best_ask={data?.best_ask}
-          handleUpdate={handleUpdateBTC}
+          handleClick={handleUpdateCrypto}
         />
       </main>
     </>

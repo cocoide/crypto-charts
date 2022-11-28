@@ -10,5 +10,5 @@ import { fetcher } from '../libs/fetcher';
 export const useBTCDataSWR = (
   fallbackData: BitflyerResType
 ): SWRResponse<BitflyerResType, any> => {
-  return useSWR(`api/bitcoin`, fetcher, { fallbackData })
+  return useSWR(`api/BTC`, fetcher, { fallbackData })
 }
