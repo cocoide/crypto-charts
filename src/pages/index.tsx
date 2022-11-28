@@ -29,7 +29,8 @@ const Home: React.FC<Props> = ({ fallbackData }) => {
     <>
     <div>
       <Head>
-          <title>Crypto Charts</title>
+          <title>CRYPTO CHECK</title>
+          <link rel="icon" href="/bitcoin.svg" />
       </Head>
     </div>
 
